@@ -1,10 +1,14 @@
 {
-  "name": "d3-server-renderer",
+  "name": "d3-renderer",
   "version": "0.0.1",
   "description": "A D3 renderer server that returns the generated svg",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:seantis/d3-renderer.git"
   },
   "author": "seantis gmbh",
   "license": "GPL-2.0",

@@ -2,25 +2,10 @@
 
 ## Setup the Development Environment
 
-1) Install node:
-
 ```
 brew install node
-```
-
-2) Set up the environment:
-
-```
-git clone ... ...
-cd ...
-virtualenv .
-pip install nodeenv
-nodeenv --python-virtualenv --clean-src .
-```
-
-3) Install this application:
-
-```
+git clone git@github.com:seantis/d3-renderer.git
+cd d3-renderer
 npm install
 ```
 
