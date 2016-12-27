@@ -15,10 +15,17 @@ Now you can run the service:
 node .
 ```
 
+Or the PhantomJS version:
+
+```
+phantomjs server.js
+```
+
+The node version is faster but doesn't support PDF generation at the moment and bounding boxes only to some extent.
 
 # Using the service
 
-Simply `POST` your code and arguments and receive the SVG in return.
+Simply `POST` your code to `http://127.0.0.1:1337` and arguments and receive the SVG or PDF in return.
 
 ## Client side code
 
@@ -51,7 +58,7 @@ var myNewChart = function(params) {
 
 The code can then be used locally as follows:
 ```javascript
-var chart = barChart({data: data})(el);
+var chart = barChart({option: value})(el);
 ```
 
 or as follows:
@@ -63,9 +70,8 @@ d3.select(..).call(chart);
 
 ## POST request
 
-Send the script together with the parameters as `JSON` to `http://127.0.0.1:1337/d3/svg`.
-Add the scripts in order you want to run them (the latest d3js version is
-already set up, no need to include it).
+Send the script together with the parameters as `JSON` to `http://127.0.0.1:1337/d3/svg` or  `http://127.0.0.1:1337/d3/pdf` .
+Add the scripts in order you want to run them (the latest d3js version is already set up, no need to include it).
 
 ```json
 {
@@ -82,14 +88,9 @@ already set up, no need to include it).
 
 # Improvements
 
-## PDF
+## PDF for the node version
 
 There are some solutions for PDF rendering of SVG images:
 - [Using LibRSVG](https://github.com/2gis/node-rsvg)
 - [Using PDFKit](https://github.com/devongovett/svgkit)
-- [Using PhantonJS](http://stackoverflow.com/a/16124992/3690178)
 
-
-## PhantomJS
-
-Using `jsdom` to render SVG's is probably not the best idea since it does not implement such things as getBBox - which we therefore need to implement ourselves. [PhantomJS](https://www.npmjs.com/package/phantomjs-prebuilt) would be probably a better option (and also solve the PDF rendering).

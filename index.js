@@ -41,7 +41,6 @@ function createChart(scripts, main, params) {
     // Set up the context & execute the scripts and main function ('chart(params)(container)')
     var context = new vm.createContext({
         d3: require('d3'),
-        _: require('underscore'),
         params: params,
         container: document.body
     });
