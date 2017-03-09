@@ -21,11 +21,11 @@ Or the PhantomJS version:
 phantomjs server.js
 ```
 
-The node version is faster but doesn't support PDF generation at the moment and bounding boxes only to some extent.
+The node version is faster but does only support SVG generation at the moment and bounding boxes only to some extent.
 
 # Using the service
 
-Simply `POST` your code to `http://127.0.0.1:1337` and arguments and receive the SVG or PDF in return.
+Simply `POST` your code to `http://127.0.0.1:1337` and arguments and receive the SVG, PNG or PDF in return.
 
 ## Client side code
 
@@ -70,7 +70,7 @@ d3.select(..).call(chart);
 
 ## POST request
 
-Send the script together with the parameters as `JSON` to `http://127.0.0.1:1337/d3/svg` or  `http://127.0.0.1:1337/d3/pdf` .
+Send the script together with the parameters as `JSON` to `http://127.0.0.1:1337/d3/svg`, `http://127.0.0.1:1337/d3/pdf` (PhantomJS only) or `http://127.0.0.1:1337/d3/pdf` (PhantomJS only).
 Add the scripts in order you want to run them (the latest d3js version is already set up, no need to include it).
 
 ```json
@@ -86,6 +86,8 @@ Add the scripts in order you want to run them (the latest d3js version is alread
 }
 ```
 
+Note that the PNG is returned Base64 encoded.
+
 # Improvements
 
 ## PDF for the node version
@@ -93,4 +95,3 @@ Add the scripts in order you want to run them (the latest d3js version is alread
 There are some solutions for PDF rendering of SVG images:
 - [Using LibRSVG](https://github.com/2gis/node-rsvg)
 - [Using PDFKit](https://github.com/devongovett/svgkit)
-
