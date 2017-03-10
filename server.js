@@ -41,7 +41,7 @@ app.post('/d3/svg', function(req, res) {
     if (data.scripts && data.main && data.params) {
         page = webpage.create();
         page.viewportSize = {width: 1000, height: 1000};
-        page.setContent('<html<body></body></html>', 'http://www.nohost.org');
+        page.setContent('<html><head><meta charset="utf-8"></head><body></body></html>', 'http://www.nohost.org');
         page.injectJs('d3.min.js');
 
         var scripts = '';
@@ -53,6 +53,7 @@ app.post('/d3/svg', function(req, res) {
         page.evaluateJavaScript('function(){' + scripts + params + main + '}');
 
         var svg = page.evaluate(function() {return (new XMLSerializer()).serializeToString(document.querySelector('svg'));});
+        res.header('Content-Type', 'image/svg+xml; charset=utf-8');
         res.send(svg);
     } else {
         res.statusCode = 400;
