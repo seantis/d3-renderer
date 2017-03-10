@@ -12,10 +12,10 @@ function renderElementToPdf(page, selector) {
 	page.clipRect = page.evaluate(function(selector) {
 		return document.querySelector(selector).getBoundingClientRect();
 	}, selector);
-    page.render(filename, { format: 'pdf' });
+    page.render(filename, {format: 'pdf'});
 	page.clipRect = prevClipRect;
 
-    var pdf = fs.read(filename);
+    var pdf = btoa(fs.open(filename, 'rb').read());
     fs.remove(filename);
 
 	return pdf;
@@ -68,7 +68,12 @@ app.post('/d3/pdf', function(req, res) {
 
     if (data.scripts && data.main && data.params) {
         page = webpage.create();
-        page.viewportSize = {width: 1000, height: 1000};
+
+        // we need to set the height to a minimum, it gets automatically
+        // set to the actual render size!
+        width = data.params.viewport_width || 1000;
+        page.viewportSize = {width: width, height: 1};
+
         page.setContent(
             '<html><head></head><body><div id="viewport"></div></body></html>',
             'http://www.nohost.org'
@@ -84,6 +89,9 @@ app.post('/d3/pdf', function(req, res) {
         page.evaluateJavaScript('function(){' + scripts + params + main + '}');
 
         var pdf = renderElementToPdf(page, '#viewport');
+
+        res.header('Content-Type', 'application/base64');
+        res.header('Content-Length', pdf.length.toString());
         res.send(pdf);
     } else {
         res.statusCode = 400;
@@ -98,7 +106,12 @@ app.post('/d3/png', function(req, res) {
 
     if (data.scripts && data.main && data.params) {
         page = webpage.create();
-        page.viewportSize = {width: 1000, height: 1000};
+
+        // It seems that only the width of the viewport is relevant. The height
+        // seems to get extended or cropped to the rendered element.
+        width = data.params.viewport_width || 1000;
+        page.viewportSize = {width: width, height: width};
+
         page.setContent(
             '<html><head></head><body><div id="viewport"></div></body></html>',
             'http://www.nohost.org'
@@ -114,6 +127,9 @@ app.post('/d3/png', function(req, res) {
         page.evaluateJavaScript('function(){' + scripts + params + main + '}');
 
         var png = renderElementToPng(page, '#viewport');
+
+        res.header('Content-Type', 'application/base64');
+        res.header('Content-Length', png.length.toString());
         res.send(png);
     } else {
         res.statusCode = 400;
