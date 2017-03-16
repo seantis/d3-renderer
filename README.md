@@ -18,7 +18,7 @@ node .
 Or the PhantomJS version:
 
 ```
-/node_modules/.bin/phantomjs server.js
+./node_modules/.bin/phantomjs server.js
 ```
 
 The node version is faster but does only support SVG generation at the moment and bounding boxes only to some extent.
@@ -87,6 +87,8 @@ Add the scripts in order you want to run them (the latest d3js version is alread
 ```
 
 Note that the PNG and PDF is returned Base64 encoded due to a nasty bug (https://github.com/ariya/phantomjs/issues/13026).
+
+The PNG and PDF might need to know the size of the viewport, you can specify them by adding a `viewport_width` and `viewport_height` to the params.
 
 # Improvements
 

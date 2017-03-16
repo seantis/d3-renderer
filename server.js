@@ -69,10 +69,10 @@ app.post('/d3/pdf', function(req, res) {
     if (data.scripts && data.main && data.params) {
         page = webpage.create();
 
-        // we need to set the height to a minimum, it gets automatically
-        // set to the actual render size!
-        width = data.params.viewport_width || 1000;
-        page.viewportSize = {width: width, height: 1};
+        page.viewportSize = {
+            width: data.params.viewport_width || 1000,
+            height: data.params.viewport_height || 1000
+        };
 
         page.setContent(
             '<html><head></head><body><div id="viewport"></div></body></html>',
@@ -107,10 +107,10 @@ app.post('/d3/png', function(req, res) {
     if (data.scripts && data.main && data.params) {
         page = webpage.create();
 
-        // It seems that only the width of the viewport is relevant. The height
-        // seems to get extended or cropped to the rendered element.
-        width = data.params.viewport_width || 1000;
-        page.viewportSize = {width: width, height: width};
+        page.viewportSize = {
+            width: data.params.viewport_width || 1000,
+            height: data.params.viewport_height || 1000
+        };
 
         page.setContent(
             '<html><head></head><body><div id="viewport"></div></body></html>',
