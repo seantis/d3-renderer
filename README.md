@@ -3,7 +3,12 @@
 ## Setup the Development Environment
 
 ```
-brew install node
+npm install d3-renderer
+```
+
+Or
+
+```
 git clone git@github.com:seantis/d3-renderer.git
 cd d3-renderer
 npm install
