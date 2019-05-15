@@ -3,4 +3,5 @@ bin
 include
 node_modules
 pip-selfcheck.json
+package-lock.json
 tmp
