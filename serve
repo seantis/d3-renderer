@@ -1,0 +1,1 @@
+./node_modules/.bin/phantomjs server.js
