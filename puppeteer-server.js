@@ -3,7 +3,7 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 
 const app = express();
-app.use(bodyParser.json(limit: '10mb'));
+app.use(bodyParser.json({limit: '10mb'}));
 
 app.post('/d3/svg', function(req, res) {
     const data = req.body;
