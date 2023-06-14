@@ -3,7 +3,7 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json(limit: '10mb'));
 
 app.post('/d3/svg', function(req, res) {
     const data = req.body;
@@ -103,7 +103,7 @@ app.post('/d3/pdf', function(req, res) {
                 // Return the PDF
                 res.header('Content-Type', 'application/base64');
                 res.header('Content-Length', pdf.length.toString());
-                res.send(pdf.toString());
+                res.send(pdf);
             } finally {
                 if (browser) { await browser.close(); }
             }
