@@ -13,7 +13,7 @@ app.post('/d3/svg', function(req, res) {
         (async () => {
             var browser
             try {
-                browser = await puppeteer.launch({headless: true});
+                browser = await puppeteer.launch({headless: true, executablePath: '/usr/bin/chromium-browser'});
                 const page = await browser.newPage();
                 await page.setViewport({
                     width: data.params.viewport_width || 1000,
@@ -56,7 +56,7 @@ app.post('/d3/pdf', function(req, res) {
         (async () => {
             var browser;
             try {
-                browser = await puppeteer.launch({headless: true});
+                browser = await puppeteer.launch({headless: true, executablePath: '/usr/bin/chromium-browser'});
                 const page = await browser.newPage();
                 await page.setContent(
                     '<html><head></head><body><div id="viewport"></div></body></html>',
@@ -124,7 +124,7 @@ app.post('/d3/png', function(req, res) {
         (async () => {
             var browser
             try {
-                browser = await puppeteer.launch({headless: true});
+                browser = await puppeteer.launch({headless: true, executablePath: '/usr/bin/chromium-browser'});
                 const page = await browser.newPage();
                 await page.setContent(
                     '<html><head></head><body><div id="viewport"></div></body></html>',
